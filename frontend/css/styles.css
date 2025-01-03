@@ -1,0 +1,89 @@
+/* css/styles.css - Estilos globales */
+:root {
+    /* Paleta de colores principal */
+    --bg-primary: #121212;
+    --bg-secondary: #1E1E1E;
+    --accent: #6366F1;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0A0;
+    
+    /* Espaciado */
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* Navegación */
+.navbar {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-md) 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Footer */
+footer {
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;  /* Ajusta esto según el tamaño que necesites */
+    width: auto;   /* Mantiene la proporción de la imagen */
+    filter: brightness(0) invert(1);  
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;  /* Espacio entre botones */
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--bg-secondary);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+}
+
+/* Página activa */
+.nav-links a.active {
+    color: var(--accent);
+    background: rgba(99, 102, 241, 0.1);
+}

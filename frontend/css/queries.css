@@ -1,0 +1,219 @@
+/* css/queries.css */
+.queries-container {
+    padding: var(--spacing-lg) 0;
+    min-height: calc(100vh - 200px);
+}
+
+/* Upload Section */
+.upload-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.upload-area {
+    border: 2px dashed var(--accent);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+    text-align: center;
+    background: var(--bg-secondary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Efecto al arrastrar un archivo */
+.upload-area.dragging {
+    border-color: #007bff;
+    background-color: #e6f7ff;
+    color: #333;
+}
+
+/* Efecto hover (cuando se pasa el mouse) */
+.upload-area:hover {
+    background-color: #f4f4f4;
+    border-color: #aaa;
+}
+
+/* Ocultar el input de archivo */
+.upload-area input[type="file"] {
+    display: none;
+}
+
+.upload-label {
+    display: block;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+/* Query Editor */
+.query-editor {
+    margin: var(--spacing-lg) 0;
+}
+
+#query-input {
+    width: 100%;
+    height: 150px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: var(--spacing-md);
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    resize: vertical;
+    margin-bottom: var(--spacing-md);
+}
+
+.execute-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.execute-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+/* Results Section */
+.results-section {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+    margin-top: var(--spacing-lg);
+}
+
+.results-table {
+    overflow-x: auto;
+}
+
+/* Logs Section */
+.logs-section {
+    margin-top: var(--spacing-lg);
+}
+
+.logs-btn {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--accent);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logs-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.logs-content {
+    margin-top: var(--spacing-md);
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .queries-container {
+        padding: var(--spacing-md);
+    }
+    
+    .upload-area {
+        padding: var(--spacing-md);
+    }
+    
+    #query-input {
+        height: 120px;
+    }
+}
+.logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+.logs-table th,
+.logs-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--accent);
+}
+
+.logs-table th {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--accent);
+}
+
+.logs-table tr:hover {
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+.results-section {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+    margin-top: var(--spacing-lg);
+ }
+ 
+ .results-section h3 {
+    color: var(--accent);
+    margin-bottom: var(--spacing-md);
+ }
+ 
+ .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+ }
+ 
+ .results-table th {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--accent);
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid var(--accent);
+ }
+ 
+ .results-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+ }
+ 
+ .results-table tr:hover {
+    background-color: rgba(99, 102, 241, 0.05);
+ }
+ 
+ /* Para manejar tablas muy anchas */
+ .results-section {
+    overflow-x: auto;
+ }
+ 
+ /* Para mantener el ancho de columnas consistente */
+ .results-table th,
+ .results-table td {
+    white-space: nowrap;
+ }
+.download-btn {
+    margin-top: var(--spacing-md);
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--accent);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    transform: translateY(-2px);
+}

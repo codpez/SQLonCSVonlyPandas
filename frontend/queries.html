@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do SQL Queries on CSV files</title>
+    <link rel="icon" type="image/x-icon" href="img/ico.ico">
+    <script src="JS/queries.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/queries.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="img/icono.png" alt="SQLonCSV Logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="queries.html" class="active">Do Queries</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="queries-container">
+        <div class="container">
+            <!-- Sección de Upload CSV -->
+            <section class="upload-section">
+                <h2>Upload your CSV file</h2>
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="csv-file" accept=".csv" hidden>
+                    <label for="csv-file" class="upload-label">
+                        Drag & Drop your CSV file here or click to browse
+                    </label>
+                </div>
+                <div id="file-info" class="file-info hidden">
+                    <p>No file selected</p>
+                </div>
+            </section>
+
+            <!-- Sección de Queries -->
+            <section class="query-section hidden">
+                <h2>SQL Query Editor</h2>
+                <div class="query-editor">
+                    <textarea id="query-input" placeholder="Enter your SQL query here..."></textarea>
+                    <button id="execute-query" class="execute-btn">Execute Query</button>
+                </div>
+                
+                <!-- Resultados -->
+                <div id="query-results" class="results-section hidden">
+                    <h3>Results</h3>
+                    <button id="download-results" class="download-btn hidden">
+                        Download Results as CSV
+                    </button>
+                    <div class="results-table">
+                        <!-- Los resultados se insertarán aquí -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección de Logs -->
+            <section class="logs-section">
+                <h2>Query Logs</h2>
+                <button id="view-logs" class="logs-btn">View Logs</button>
+                <div id="logs-content" class="logs-content hidden">
+                    <!-- Los logs se insertarán aquí -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>LePoissonDev - 2024</p>
+        </div>
+    </footer>
+</body>
+</html>
