@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLonCSV - Usage</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="icon" type="image/x-icon" href="img/ico.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="img/icono.png" alt="SQLonCSV Logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="usage.html" class="active">Usage</a>
+                <a href="queries.html">Do Queries</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="container">
+            <h1 class="title">SQLonCSV - Cómo usar</h1>
+            <section class="features">
+                <article class="feature-card">
+                    <h3>Propósito</h3>
+                    <p>SQLonCSV permite ejecutar queries SQL sobre archivos CSV cargados desde tu navegador.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Queries Soportadas</h3>
+                    <ul>
+                        <li><b>SELECT</b> - Soporta WHERE, ORDER BY y LIMIT.</li>
+                        <li><b>INSERT</b> - Agregar nuevas filas a tus datos.</li>
+                        <li><b>UPDATE</b> - Actualizar filas existentes basadas en condiciones.</li>
+                        <li><b>DELETE</b> - Eliminar filas específicas usando condiciones.</li>
+                    </ul>
+                </article>
+                <article class="feature-card">
+                    <h3>Ejemplos de Uso</h3>
+                    <ul>
+                        <li><code>SELECT id, name FROM employees WHERE age > 30;</code></li>
+                        <li><code>INSERT INTO employees (id, name, age) VALUES (27, 'Grace', 26);</code></li>
+                        <li><code>UPDATE employees SET salary = 60000 WHERE id = 3;</code></li>
+                        <li><code>DELETE FROM employees WHERE department = 'IT';</code></li>
+                    </ul>
+                </article>
+                <article class="feature-card">
+                    <h3>Mensajes de Error Comunes</h3>
+                    <ul>
+                        <li><b>"El archivo debe ser un CSV"</b>: Asegúrate de subir un archivo con extensión .csv.</li>
+                        <li><b>"Error en SELECT"</b>: Revisa la sintaxis de tu query.</li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>LePoissonDev - 2024</p>
+        </div>
+    </footer>
+</body>
+</html>

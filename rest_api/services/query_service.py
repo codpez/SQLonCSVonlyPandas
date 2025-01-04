@@ -22,7 +22,7 @@ class QueryService:
         try:
             # Validar y analizar la consulta SQL
             parsed = self.interpreter.interpret(query)
-            print(f"Parsed UPDATE query: {parsed}")
+            print(f"Parsed query: {parsed}")
             if not parsed:
                 return False, "Error al interpretar la consulta.", None
             
@@ -48,32 +48,6 @@ class QueryService:
             return False, f"Error ejecutando la consulta: {str(e)}", None
 
 
-    def _parse_conditions(self, condition, df):
-        """
-        Convierte las condiciones del parser a la sintaxis de pandas.
-
-        Args:
-            condition: Árbol de condiciones generado por el parser.
-            df: DataFrame para referencia de columnas.
-
-        Returns:
-            str: Condición en formato de pandas.
-        """
-        if isinstance(condition, tuple):
-            operator, left, right = condition
-            left_col = f"`{left}`" if left in df.columns else left
-            if operator == "=":
-                operator = "=="
-            return f"{left_col} {operator} {right}"
-        elif isinstance(condition, list):
-            # Caso de operadores lógicos AND/OR
-            left = self._parse_conditions(condition[0], df)
-            logical = condition[1].lower()
-            right = self._parse_conditions(condition[2], df)
-            return f"({left}) {logical} ({right})"
-        return condition
-
-
     def _execute_select(self, parsed, df):
         """
         Ejecuta una operación SELECT en el DataFrame.
@@ -86,40 +60,60 @@ class QueryService:
             tuple: (éxito, resultado, tipo de operación)
         """
         try:
-            # Extraer columnas, tabla y cláusulas opcionales
-            columns, table, optional_clauses = parsed[1:4]
+            # Desempaquetar valores del query parseado
+            _, columns, table, optional_clauses = parsed
+            print(f"Parsed SELECT query: columns={columns}, table={table}, optional_clauses={optional_clauses}")
 
-            # Seleccionar columnas
-            if columns == ["*"]:
-                result = df
+            # Seleccionar columnas específicas o todas (*)
+            if columns == ['*']:
+                selected_df = df
             else:
-                try:
-                    result = df[columns]
-                except KeyError as e:
-                    return False, f"Error: Columna no encontrada: {str(e)}", "SELECT"
+                selected_df = df[columns]
 
-            # Procesar cláusulas opcionales
-            if optional_clauses:
-                for clause in optional_clauses:
-                    clause_type = clause[0].upper()
+            optional_clauses = optional_clauses if isinstance(optional_clauses, dict) else {}
+            # Aplicar cláusula WHERE
+            where_clause = optional_clauses.get('WHERE')
+            if where_clause:
+                operator, condition_column, condition_value = where_clause
 
-                    if clause_type == "WHERE":
-                        conditions = self._parse_conditions(clause[1], df)
-                        result = result.query(conditions)
+                # Validar que la columna exista en el DataFrame
+                if condition_column not in df.columns:
+                    return False, f"Error en SELECT: La columna '{condition_column}' no existe en la tabla.", "SELECT"
 
-                    elif clause_type == "ORDER":
-                        order_column = clause[1]
-                        ascending = True if len(clause) < 3 or clause[2].upper() == "ASC" else False
-                        result = result.sort_values(by=order_column, ascending=ascending)
+                # Generar la máscara booleana basada en el operador
+                if operator == '=':
+                    mask = df[condition_column] == condition_value
+                elif operator == '>':
+                    mask = df[condition_column] > condition_value
+                elif operator == '<':
+                    mask = df[condition_column] < condition_value
+                else:
+                    return False, f"Error en SELECT: Operador '{operator}' no soportado.", "SELECT"
 
-                    elif clause_type == "LIMIT":
-                        limit = clause[1]
-                        result = result.head(limit)
+                # Aplicar la máscara al DataFrame
+                print(f"Aplicando WHERE: columna={condition_column}, operador={operator}, valor={condition_value}")
+                selected_df = selected_df[mask]
 
-            return True, result.to_dict('records'), "SELECT"
+            # Aplicar cláusula ORDER BY
+            order_clause = optional_clauses.get('ORDER BY')
+            if order_clause:
+                order_column, order_direction = order_clause
+                ascending = order_direction.upper() == 'ASC'
+                selected_df = selected_df.sort_values(by=order_column, ascending=ascending)
+
+            # Aplicar cláusula LIMIT
+            limit_clause = optional_clauses.get('LIMIT')
+            if limit_clause:
+                selected_df = selected_df.head(limit_clause)
+
+            # Convertir el DataFrame a lista de diccionarios para enviar al frontend
+            result = selected_df.to_dict('records')
+
+            return True, result, "SELECT"
 
         except Exception as e:
             return False, f"Error en SELECT: {str(e)}", "SELECT"
+
 
 
     def _execute_insert(self, parsed, df):

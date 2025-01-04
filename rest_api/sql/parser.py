@@ -139,20 +139,20 @@ class SQLParser:
 
     def p_where_clause(self, p):
         """where_clause : WHERE condition"""
-        p[0] = ("WHERE", p[2])
+        p[0] = {"WHERE": p[2]}
 
     def p_limit_clause(self, p):
         """limit_clause : LIMIT NUMBER"""
-        p[0] = ("LIMIT", p[2])
+        p[0] = {"LIMIT": int(p[2])}
 
     def p_order_clause(self, p):
         """order_clause : ORDER BY column
                         | ORDER BY column DESC
                         | ORDER BY column ASC"""
         if len(p) == 4:
-            p[0] = ("ORDER", p[3])
+            p[0] = {"ORDER BY": (p[3], 'ASC')}
         else:
-            p[0] = ("ORDER", p[3], p[4])
+            p[0] = {"ORDER BY": (p[3], p[4].upper())}
         
     def p_group_columns(self, p):
         """group_columns : group_columns COMMA column
@@ -176,23 +176,19 @@ class SQLParser:
         p[0] = p[1]
 
     def p_optional_clauses(self, p):
-        """optional_clauses : where_clause group_clause order_clause limit_clause
-                        | group_clause order_clause limit_clause
-                        | where_clause order_clause limit_clause
-                        | where_clause group_clause limit_clause
-                        | where_clause group_clause order_clause
-                        | where_clause limit_clause
-                        | where_clause order_clause
-                        | where_clause group_clause
-                        | group_clause order_clause
-                        | group_clause limit_clause
-                        | order_clause limit_clause
-                        | limit_clause
-                        | group_clause
-                        | order_clause
-                        | where_clause
-                        | empty"""
-        p[0] = p[1]
+        """optional_clauses : where_clause optional_clauses
+                            | order_clause optional_clauses
+                            | limit_clause optional_clauses
+                            | empty"""
+        if len(p) == 3:
+            # Combinar todas las cláusulas en un único diccionario
+            if isinstance(p[2], dict):
+                p[0] = {**p[1], **p[2]}
+            else:
+                p[0] = p[1]  # Caso de solo una cláusula
+        else:
+            p[0] = {}  # Caso vacío
+
 
     def p_error(self, p):
         if p:

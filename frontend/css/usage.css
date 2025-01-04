@@ -1,0 +1,98 @@
+/* Estilos para usage.html */
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    margin-left: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.nav-links .active {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.hero {
+    padding: 2rem 0;
+    text-align: center;
+    background: var(--bg-primary);
+}
+
+.hero .title {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem 0;
+}
+
+.feature-card {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.feature-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-card ul li {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.feature-card ul li code {
+    background: rgba(99, 102, 241, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+footer {
+    background: var(--bg-secondary);
+    text-align: center;
+    padding: 1rem 0;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}

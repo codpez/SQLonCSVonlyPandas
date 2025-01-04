@@ -19,6 +19,14 @@
     cursor: pointer;
 }
 
+.upload-area.dragging::before {
+    content: "📂 Suelta aquí tu archivo CSV";
+    font-size: 16px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: var(--spacing-md);
+}
+
 /* Efecto al arrastrar un archivo */
 .upload-area.dragging {
     border-color: #007bff;
@@ -114,10 +122,10 @@
     border-radius: 8px;
 }
 
-/* Utility Classes */
 .hidden {
     display: none;
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -217,3 +225,20 @@
     background: rgba(99, 102, 241, 0.1);
     transform: translateY(-2px);
 }
+
+.error {
+    color: #ff4d4f;
+    background: #fff1f0;
+    border: 1px solid #ffa39e;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.loading {
+    font-size: 16px;
+    color: #007bff;
+    margin-top: 10px;
+}
+

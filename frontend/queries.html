@@ -18,6 +18,7 @@
             </a>
             <div class="nav-links">
                 <a href="index.html">Inicio</a>
+                <a href="usage.html">Usage</a>
                 <a href="queries.html" class="active">Do Queries</a>
             </div>
         </div>
@@ -38,7 +39,7 @@
                     <p>No file selected</p>
                 </div>
             </section>
-
+            <div id="error-message" class="error hidden"></div>
             <!-- Sección de Queries -->
             <section class="query-section hidden">
                 <h2>SQL Query Editor</h2>
@@ -46,6 +47,7 @@
                     <textarea id="query-input" placeholder="Enter your SQL query here..."></textarea>
                     <button id="execute-query" class="execute-btn">Execute Query</button>
                 </div>
+                <div id="loading" class="loading hidden">Procesando...</div>
                 
                 <!-- Resultados -->
                 <div id="query-results" class="results-section hidden">

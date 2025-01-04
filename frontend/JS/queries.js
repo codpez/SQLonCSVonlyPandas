@@ -38,6 +38,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    function showLoading() {
+        const loadingDiv = document.getElementById('loading');
+        loadingDiv.classList.remove('hidden');
+    }
+    
+    function hideLoading() {
+        const loadingDiv = document.getElementById('loading');
+        loadingDiv.classList.add('hidden');
+    }
+
     // Manejar selección manual de archivo
     fileInput.addEventListener('change', handleFileUpload);
 
@@ -45,11 +55,13 @@ document.addEventListener('DOMContentLoaded', function() {
     executeBtn.addEventListener('click', async () => {
         const query = queryInput.value.trim();
         if (!query) {
-            alert('Please enter a query');
+            showError('Please enter a query');
             return;
         }
 
         try {
+            clearError();
+            showLoading();
             const response = await fetch(`${API_URL}/query`, {
                 method: 'POST',
                 headers: {
@@ -59,17 +71,18 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             const data = await response.json();
-            console.log('Query response:', data);  // Debug
+            hideLoading();
 
             if (data.success) {
+                clearError();
                 currentQueryType = data.operation; // Guardar el tipo de operación actual
                 displayResults(data.data, data.operation);
             } else {
-                alert(data.message);
+                showError(data.message);
             }
         } catch (error) {
             console.error('Error executing query:', error);
-            alert('Error executing query');
+            showError('Error ejecutando query. Intenta nuevamente.');
         }
     });
 
@@ -106,12 +119,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     </table>
                 `;
                 logsContent.classList.remove('hidden');
+                clearError()
             } else {
-                alert(data.message);
+                showError(data.message);
             }
         } catch (error) {
             console.error('Error fetching logs:', error);
-            alert('Error fetching logs');
+            showError('Error fetching logs');
         }
     });
 
@@ -141,14 +155,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 fileInfo.classList.remove('hidden');
                 querySection.style.display = 'block';
                 console.log('Mostrando sección de queries');
+                clearError();
             } else {
                 console.log('Error en la carga:', data.message);  // Debug
-                alert(data.message || 'Error uploading file');
+                showError(data.message || 'Error uploading file');
             }
         } catch (error) {
             console.error('Error uploading file:', error);
-            alert('Error uploading file');
+            showError('Error uploading file');
         }
+    }
+
+    function showError(message) {
+        const errorDiv = document.getElementById('error-message');
+        errorDiv.textContent = message;
+        errorDiv.classList.remove('hidden');
+    }
+    
+    function clearError() {
+        const errorDiv = document.getElementById('error-message');
+        errorDiv.textContent = '';
+        errorDiv.classList.add('hidden');
     }
     
 
@@ -229,9 +256,10 @@ document.addEventListener('DOMContentLoaded', function() {
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
+            clearError();
         } catch (error) {
             console.error('Error downloading CSV:', error);
-            alert('Error downloading CSV');
+            showError('Error downloading CSV');
         }
     }
 
